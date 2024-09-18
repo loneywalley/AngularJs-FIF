@@ -1,4 +1,5 @@
-<div class="container">
+<!-- <div class="container">
+
   <h2 class="title" [style]="{color: backgroundColor}">
     {{title}}
   </h2>
@@ -16,7 +17,7 @@
   <button (click)="updateName('Darma')">Change to Darma</button>
 
   <app-button [buttonLabel] = "labelButton1" (submitButton)="eventFromParent($event)" [dataFoChild]="dataUser"></app-button>
-  <!-- <app-button [buttonLabel] = "labelButton2" [dataFoChild]="dataUser"></app-button> -->
+   <app-button [buttonLabel] = "labelButton2" [dataFoChild]="dataUser"></app-button> --
 
   <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
     <label for="name">
@@ -49,4 +50,35 @@
 
   </form>
 
-</div>
+</div> -->
+
+
+<button (click)="onSubmit()">change is shown value</button>
+
+<div class="shown" *ngIf="isShown";else templateName>muncul</div>
+  <ng-container templateName>
+    <div>
+      muncul ketika else
+    </div>
+  </ng-container>
+
+<P>Default</P>
+
+<p>{{'12' | currency:'IDR':'symbol'}}</p>
+
+<ul>
+  <li *ngFor="let item of dataUser.address">
+    {{item.city}}
+    <div [ngSwitch]="item.zone">
+      <div *ngSwitchCase="1" [ngStyle]="{color: item.zone === 1 ? 'red':'yellow'}">merah</div>
+      <div *ngSwitchCase="2" [ngClass]="{'zone-safe': item.zone === 2}">biru</div>
+      <div *ngSwitchCase="3" [ngClass]="item.zone === 3? 'zone-green' : 'zone-safe'">hijau</div>
+      <div *ngSwitchDefault>kuning</div>
+    </div>
+  </li>
+</ul>
+
+<p>{{'Hello World' | reverse}}</p>
+
+<p>{{today | date:'MM-d-YYYY'}}</p>
+<p>{{today}}</p>

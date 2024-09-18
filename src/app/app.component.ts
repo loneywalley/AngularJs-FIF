@@ -1,81 +1,97 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DataUser } from './app.entity';
+import { DataUser } from './app.model';
 import { CommonModule } from '@angular/common';
-import { ButtonComponent } from '../button/button.component';
-import { GenerateRandomIdService } from '../button/generate-random-id.service';
-import { FormGroup, FormsModule, Validators, FormControl } from '@angular/forms';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonComponent } from "../button/button.component";
+import { GenerateRandomIdService } from '../generate-random-id.service';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ReversePipe } from './reverse.pipe';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, ButtonComponent, FormsModule, ReactiveFormsModule],
+  imports: [RouterOutlet, CommonModule, ButtonComponent, FormsModule, ReactiveFormsModule, ReversePipe],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
 export class AppComponent implements OnInit {
-  title = 'belajar-angular';
-  dataUser! : DataUser;
+  title: string = 'my-first-project';
+  dataUser!: DataUser;
   randomId: string;
-  labelButton1 = "sikat"
-  labelButton2 = "gas"
-  triggerForParentName: string =""
-  backgroundColor: string = 'yellow'
-  name: string = ""
-  updatedName: string = ""
-  addUserForm: FormGroup
+  labelButton1: string = 'karta';
+  labelButton2: String = 'kevin';
+  fontColor: string = 'yellow';
+  name: string = '';
+  updatedName: string = '';
 
-  constructor(
+  addUserForm!: FormGroup;
+
+  isShown!: boolean;
+
+  today: Date = new Date();
+
+  constructor (
     private randomIdService: GenerateRandomIdService
-  ){
+  ) {
     this.randomId = this.randomIdService.generateId();
-    this.addUserForm = new FormGroup({
+    this.addUserForm = new FormGroup ({
       name: new FormControl('', [Validators.required]),
-      email: new FormControl('', [Validators.required, Validators.email]),
       phoneNumber: new FormControl('', [Validators.required, Validators.minLength(9), Validators.maxLength(13)])
-    })
+    });
   }
 
-  @HostListener('mouseenter') onMouseEnter(){
-    this.backgroundColor = 'pink';
+  get nameForm() {
+    return this.addUserForm.get('name')
   }
 
-  @HostListener('mouseleave') onMouseLeave(){
-    this.backgroundColor = 'black';
+  get phoneNumberForm() {
+    return this.addUserForm.get('phoneNumber')
+  }
+
+  @HostListener('mouseenter') onMouseEnter() {
+    this.fontColor = 'blue';
+  }
+
+  @HostListener('mouseleave') onMouseLeave() {
+    this.fontColor = 'aqua';
   }
 
   ngOnInit(): void {
-    this.title = 'belajar';
+    this.title = 'test fif angular';
     this.dataUser = {
-      name: 'bram',
-      age: 23,
-      address: 
-      [{
-        zipcode: 1,
-        provinces: 'Bali',
-        city: 'Denpasar',
-        district: 'Penatih'
+      name : 'KARTA',
+      age : 25,
+      address: [
+        
+      {
+        province: 'Banten',
+        city: 'Tangerang',
+        district: 'Cisauk',
+        zone: 1
       },
       {
-        zipcode: 2,
-        provinces: 'Jawa Timur',
-        city: 'Surabaya',
-        district: 'Rungkut'
-      }]
+        province: 'DKI',
+        city: 'Jakarta',
+        district: 'Cisauk',
+        zone: 2
+      }    
+    ]
     }
   }
-  eventFromParent(event: any) {
+
+
+  eventFromParent(event:any) {
     console.log(event);
     this.labelButton1 = event;
     this.labelButton2 = event;
   }
-  updateName(event: any) {
-    this.name = event
-  }
 
+  updateName(event: string){
+    this.name = event;
+  }
+  
   onSubmit(){
-    console.log('For Data:', this.addUserForm.value)
+    console.log('Form Data', this.addUserForm.value);
   }
 }
