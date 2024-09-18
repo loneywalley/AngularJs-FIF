@@ -1,0 +1,52 @@
+<div class="container">
+  <h2 class="title" [style]="{color: backgroundColor}">
+    {{title}}
+  </h2>
+  <p class="desc">
+    {{dataUser.name}}
+    {{dataUser.address[0].provinces}}
+  </p>
+  <div class="address" *ngFor="let address of dataUser.address">
+    {{address.city}}
+  </div>
+  {{randomId}}
+  <input placeholder="enter your name" [(ngModel)]="name">
+  <p>Your name  is : {{name}}</p>
+
+  <button (click)="updateName('Darma')">Change to Darma</button>
+
+  <app-button [buttonLabel] = "labelButton1" (submitButton)="eventFromParent($event)" [dataFoChild]="dataUser"></app-button>
+  <!-- <app-button [buttonLabel] = "labelButton2" [dataFoChild]="dataUser"></app-button> -->
+
+  <form [formGroup]="addUserForm" (ngSubmit)="onSubmit()">
+    <label for="name">
+      Name: 
+    </label>
+    <input id="name" formControlName="name" placeholder="Please input your name">
+    <div class="validation-error" *ngIf="addUserForm.get('name')?.invalid && addUserForm.get('name')?.touched">
+      Name Required
+    </div>
+    <br>
+    <label for="email">
+      Email:
+    </label>
+    <input id="email" formControlName="email" placeholder="Please input your email">
+    <div class="validation-error" *ngIf="addUserForm.get('email')?.invalid && addUserForm.get('email')?.touched">
+      Valid email Required
+    </div> 
+    <br>
+    <label for="phoneNumber">
+      Phone Number:
+    </label>
+    <input id="phoneNumber" formControlName="phoneNumber" placeholder="Please input your phone number">
+    <div class="validation-error" *ngIf="addUserForm.get('phoneNumber')?.invalid && addUserForm.get('phoneNumber')?.touched">
+      Phone number minimal 9 digits and maximal 13 digits
+    </div> 
+    <br>
+    <button type="submit" [disabled]="addUserForm.invalid">
+      Submit
+    </button>
+
+  </form>
+
+</div>
