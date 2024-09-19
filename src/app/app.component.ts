@@ -1,17 +1,16 @@
 import { Component, HostListener, OnInit } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DataUser } from './app.model';
+import { DataUser } from './app.entity';
 import { CommonModule } from '@angular/common';
 import { ButtonComponent } from "../button/button.component";
-import { GenerateRandomIdService } from '../generate-random-id.service';
+import { GenerateRandomIdService } from '../button/generate-random-id.service';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
-import { ReversePipe } from './reverse.pipe';
 
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, CommonModule, ButtonComponent, FormsModule, ReactiveFormsModule, ReversePipe],
+  imports: [RouterOutlet, CommonModule, ButtonComponent, FormsModule, ReactiveFormsModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -65,16 +64,16 @@ export class AppComponent implements OnInit {
       address: [
         
       {
-        province: 'Banten',
+        provinces: 'Banten',
         city: 'Tangerang',
         district: 'Cisauk',
-        zone: 1
+        zipcode: 1
       },
       {
-        province: 'DKI',
+        provinces: 'DKI',
         city: 'Jakarta',
         district: 'Cisauk',
-        zone: 2
+        zipcode: 2
       }    
     ]
     }
